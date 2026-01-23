@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git rev-list:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill:*)",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "Bash(pip3 show:*)",
+      "Bash(source venv/bin/activate)",
+      "Bash(pip show:*)"
+    ]
+  }
+}
