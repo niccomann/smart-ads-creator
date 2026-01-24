@@ -64,17 +64,17 @@ Posizionamento: {product.positioning}
 USP: {', '.join(product.usp)}
 
 ## BRAND
-Nome: {product.brand.get('name', 'N/A')}
-Tone of Voice: {product.brand.get('tone_of_voice', 'N/A')}
-Colori: {product.brand.get('colors', {})}
+Nome: {product.brand.name}
+Tone of Voice: {product.brand.tone_of_voice}
+Colori: {product.brand.colors}
 
 ## TARGET AUDIENCE
-Eta': {product.target_audience.get('age_range', 'N/A')}
-Interessi: {', '.join(product.target_audience.get('interests', []))}
-Pain Points: {', '.join(product.target_audience.get('pain_points', []))}
+Eta': {product.target_audience.age_range}
+Interessi: {', '.join(product.target_audience.interests)}
+Pain Points: {', '.join(product.target_audience.pain_points)}
 
 ## STILE VISIVO SUGGERITO
-{product.visual_style.get('suggested_video_style', 'cinematic')}
+{product.visual_style.suggested_video_style}
 
 ## INSIGHT DI MERCATO
 Opportunita': {', '.join(market.opportunities) if market.opportunities else 'N/A'}

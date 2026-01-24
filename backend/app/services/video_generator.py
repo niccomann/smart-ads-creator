@@ -71,6 +71,10 @@ class VideoGeneratorService:
         try:
             if provider == VideoProvider.SORA:
                 video = await self._generate_sora(video, main_prompt, concept.duration_seconds)
+            elif provider == VideoProvider.VEO:
+                video = await self._generate_veo(video, main_prompt, concept.duration_seconds)
+            elif provider == VideoProvider.RUNWAY:
+                video = await self._generate_runway(video, main_prompt, concept.duration_seconds)
             else:
                 video = await self._generate_veo(video, main_prompt, concept.duration_seconds)
         except Exception as e:
