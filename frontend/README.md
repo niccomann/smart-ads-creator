@@ -1,73 +1,59 @@
-# React + TypeScript + Vite
+> Last updated: 2026-03-15 18:00
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# AdGenius AI - Frontend
 
-Currently, two official plugins are available:
+Frontend dell'applicazione **Smart Ads Creator**: una piattaforma che analizza repository GitHub (o prodotti inseriti manualmente) e genera video pubblicitari tramite AI (Sora, Runway, Kling, Veo).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Cosa Fa
 
-## React Compiler
+- **Importa repository GitHub**: lista i repo dell'utente, analizza codice e README per estrarre nome prodotto, target audience, USP e stile visivo
+- **Analisi prodotto e mercato**: lancia analisi automatiche (prodotto, competitor, trend) e genera concept video
+- **Generazione video AI**: invia prompt a provider video (Sora, Runway, Kling, Veo) con stili diversi (cinematic, lifestyle, UGC, product demo, testimonial)
+- **Galleria video**: visualizza, scarica e gestisce tutti i video generati con statistiche aggregate
+- **Creazione manuale**: form per inserire prodotti/servizi non presenti su GitHub
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Stack Tecnico
 
-## Expanding the ESLint configuration
+- **React 19** + **TypeScript 5.9**
+- **Vite 7** (dev server e build)
+- **Tailwind CSS 4** (plugin Vite nativo)
+- Nessuna libreria UI esterna -- componenti custom con classi Tailwind
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Struttura Progetto
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+  App.tsx                  # Layout principale con navigazione a tab
+  components/
+    GitHubRepos.tsx        # Lista repo GitHub, analisi e creazione progetto
+    VideoGallery.tsx       # Galleria video generati con streaming
+    ProjectCard.tsx        # Card progetto con stato e azioni
+    ProjectDetail.tsx      # Vista dettaglio con analisi e generazione video
+    NewProjectForm.tsx     # Form creazione progetto manuale
+  hooks/
+    useProjects.ts         # Hook per CRUD progetti (list, create, delete, refresh)
+  lib/
+    api.ts                 # Client API: projects, analysis, video, github, videos
+  types/
+    index.ts               # Tipi TypeScript (Project, VideoConcept, GeneratedVideo, etc.)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## API Backend
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Il frontend comunica con il backend tramite `/api` (proxy Vite). Endpoint principali:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- `GET/POST/DELETE /api/projects/` -- gestione progetti
+- `POST /api/analysis/{id}/full-analysis` -- analisi completa
+- `POST /api/video/{id}/generate/{concept}` -- generazione video
+- `GET/POST /api/github/repos` -- integrazione GitHub
+- `GET /api/videos` -- galleria video con statistiche
+
+## Come Avviare
+
+```bash
+npm install
+npm run dev      # Server di sviluppo (Vite)
+npm run build    # Type-check + build produzione
+npm run preview  # Anteprima build
+npm run lint     # ESLint
 ```

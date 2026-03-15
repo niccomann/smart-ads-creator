@@ -1,4 +1,6 @@
-# 🎬 AI Video Ad Generator - Specifica Tecnica Completa
+> Last updated: 2026-03-07
+
+# AI Video Ad Generator - Specifica Tecnica Completa
 
 > **Nome Progetto:** AdGenius AI (nome provvisorio)
 > **Versione:** 1.0 Draft
