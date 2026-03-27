@@ -1,3 +1,6 @@
+# NOTE: First run: source ../install-shared-libs.sh (or ../../install-shared-libs.sh)
+# This installs shared-fastapi-bootstrap and shared-llm-gateway as editable packages.
+
 # FastAPI & Server
 fastapi>=0.115.0
 uvicorn[standard]>=0.32.0
